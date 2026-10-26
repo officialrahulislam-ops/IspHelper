@@ -5,10 +5,6 @@ workflows:
     instance_type: mac_mini_m1
     environment:
       flutter: stable
-    cache:
-      name: flutter-cache-{{ checksum "pubspec.lock" }}
-      paths:
-        - ~/.pub-cache
     trigger:
       branch: main
     scripts:
@@ -21,7 +17,9 @@ workflows:
             --build-number=${CM_BUILD_NUMBER}
     artifacts:
       - build/app/outputs/flutter-apk/app-release.apk
-    notifications:
+    publishing:
       email:
-        on_failure: true
+        recipients:
+          - user@example.com
         on_success: true
+        on_failure: true
