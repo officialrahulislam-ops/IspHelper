@@ -1,0 +1,27 @@
+workflows:
+  android_build:
+    name: Build Android APK
+    max_build_duration: 30
+    instance_type: mac_mini_m1
+    environment:
+      flutter: stable
+    cache:
+      name: flutter-cache-{{ checksum "pubspec.lock" }}
+      paths:
+        - ~/.pub-cache
+    trigger:
+      branch: main
+    scripts:
+      - name: Install dependencies
+        script: flutter pub get
+      - name: Build Android APK
+        script: |
+          flutter build apk --release \
+            --build-name=${CM_BUILD_NUMBER} \
+            --build-number=${CM_BUILD_NUMBER}
+    artifacts:
+      - build/app/outputs/flutter-apk/app-release.apk
+    notifications:
+      email:
+        on_failure: true
+        on_success: true
