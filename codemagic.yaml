@@ -9,6 +9,12 @@ workflows:
       - name: Install dependencies
         script: flutter pub get
       - name: Build Android APK
-        script: flutter build apk --release --build-name=${CM_BUILD_NUMBER} --build-number=${CM_BUILD_NUMBER}
+        script: |
+          # Use 1 as a fallback if CM_BUILD_NUMBER is not set or not an integer
+          BUILD_NUM=${CM_BUILD_NUMBER:-1}
+          if ! [[ "$BUILD_NUM" =~ ^[0-9]+$ ]]; then
+            BUILD_NUM=1
+          fi
+          flutter build apk --release --build-name=$BUILD_NUM --build-number=$BUILD_NUM
     artifacts:
       - build/app/outputs/flutter-apk/app-release.apk
