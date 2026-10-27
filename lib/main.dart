@@ -107,10 +107,10 @@ class _WiFiDashboardState extends State<WiFiDashboard> {
         crossAxisSpacing: 16,
         mainAxisSpacing: 16,
         children: [
-          _buildInfoTile('Signal', 'Strong', FontAwesomeIcons.signal),
-          _buildInfoTile('Speed', '120 Mbps', FontAwesomeIcons.gaugeHigh),
-          _buildInfoTile('Frequency', '5 GHz', FontAwesomeIcons.bolt),
-          _buildInfoTile('Security', 'WPA3', FontAwesomeIcons.lock),
+          _buildInfoTile('Signal', 'Strong', FontAwesomeIcons.signal as IconData),
+          _buildInfoTile('Speed', '120 Mbps', FontAwesomeIcons.gaugeHigh as IconData),
+          _buildInfoTile('Frequency', '5 GHz', FontAwesomeIcons.bolt as IconData),
+          _buildInfoTile('Security', 'WPA3', FontAwesomeIcons.lock as IconData),
         ],
       ),
     );
@@ -125,7 +125,7 @@ class _WiFiDashboardState extends State<WiFiDashboard> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          FaIcon(icon, color: Colors.white70),
+          Icon(icon, color: Colors.white70),
           const SizedBox(height: 12),
           Text(title, style: const TextStyle(color: Colors.grey)),
           Text(value, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
