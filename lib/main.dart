@@ -6,6 +6,10 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 void main() {
+  // Ensure errors are visible
+  FlutterError.onError = (FlutterErrorDetails details) {
+    FlutterError.dumpErrorToConsole(details);
+  };
   runApp(const WiFiPulseApp());
 }
 
@@ -16,6 +20,7 @@ class WiFiPulseApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'WiFi Pulse',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         brightness: Brightness.dark,
         primaryColor: const Color(0xFF6200EE),
@@ -107,16 +112,16 @@ class _WiFiDashboardState extends State<WiFiDashboard> {
         crossAxisSpacing: 16,
         mainAxisSpacing: 16,
         children: [
-          _buildInfoTile('Signal', 'Strong', FontAwesomeIcons.signal as IconData),
-          _buildInfoTile('Speed', '120 Mbps', FontAwesomeIcons.gaugeHigh as IconData),
-          _buildInfoTile('Frequency', '5 GHz', FontAwesomeIcons.bolt as IconData),
-          _buildInfoTile('Security', 'WPA3', FontAwesomeIcons.lock as IconData),
+          _buildInfoTile('Signal', 'Strong', const FaIcon(FontAwesomeIcons.wifi, color: Colors.white70)),
+          _buildInfoTile('Speed', '120 Mbps', const FaIcon(FontAwesomeIcons.gaugeHigh, color: Colors.white70)),
+          _buildInfoTile('Frequency', '5 GHz', const FaIcon(FontAwesomeIcons.bolt, color: Colors.white70)),
+          _buildInfoTile('Security', 'WPA3', const FaIcon(FontAwesomeIcons.lock, color: Colors.white70)),
         ],
       ),
     );
   }
 
-  Widget _buildInfoTile(String title, String value, IconData icon) {
+  Widget _buildInfoTile(String title, String value, Widget icon) {
     return Container(
       decoration: BoxDecoration(
         color: const Color(0xFF1E1F26),
@@ -125,7 +130,7 @@ class _WiFiDashboardState extends State<WiFiDashboard> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(icon, color: Colors.white70),
+          icon,
           const SizedBox(height: 12),
           Text(title, style: const TextStyle(color: Colors.grey)),
           Text(value, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
